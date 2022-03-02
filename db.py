@@ -26,6 +26,24 @@ class DatabaseOperations:
             print(data)
         self.connection.commit()
 
+    def getPassByUrl(self, URL):
+        mycursor = self.connection.cursor()
+        query = "SELECT App, URL, Username, Password FROM Apps WHERE URL = %s"
+        mycursor.execute(query, (URL))
+        result = mycursor.fetchone()
+        for data in result:
+            print(data)
+        self.connection.commit()
+
+    def getPassByUsername(self, Username):
+        mycursor = self.connection.cursor()
+        query = "SELECT App, URL, Username, Password FROM Apps WHERE Username = %s"
+        mycursor.execute(query, (Username))
+        result = mycursor.fetchone()
+        for data in result:
+            print(data)
+        self.connection.commit()
+
 
 
     def test(self):
@@ -33,7 +51,3 @@ class DatabaseOperations:
         query = "SELECT * FROM Apps"
         print(mycursor.execute(query))
         self.connection.commit()
-
-x = DatabaseOperations()
-need = input()
-x.getPassByApp(need)
