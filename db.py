@@ -1,4 +1,3 @@
-from h11 import Data
 import pymysql
 
 class DatabaseOperations:
@@ -16,6 +15,19 @@ class DatabaseOperations:
         query = "INSERT INTO Apps (App, URL, Username, Password) VALUES (%s, %s, %s, %s)"
         mycursor.execute(query, (app, url, username, password))
         self.connection.commit()
+
+
+    def getPassByApp(self, appName):
+        mycursor = self.connection.cursor()
+        query = "SELECT App, URL, Username, Password FROM Apps WHERE App = %s"
+        mycursor.execute(query, (appName))
+        result = mycursor.fetchone()
+        for data in result:
+            print(data)
+        self.connection.commit()
+
+
+
     def test(self):
         mycursor = self.connection.cursor()
         query = "SELECT * FROM Apps"
@@ -23,4 +35,5 @@ class DatabaseOperations:
         self.connection.commit()
 
 x = DatabaseOperations()
-x.addPass("Facebook", "www.facebook.com", "Pablo", "123xyz")
+need = input()
+x.getPassByApp(need)
